@@ -27,7 +27,7 @@ ensure_permissions() {
 
 BRANCH=`git rev-parse --abbrev-ref HEAD`
 BRANCH=$(echo "$BRANCH" | tr '/' '_')
-BINARY=y2j
+BINARY=yaml2json
 OUTPUT=/opt/bin
 CHECK_PERMS=0
 

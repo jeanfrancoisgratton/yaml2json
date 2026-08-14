@@ -1,5 +1,5 @@
 Package: yaml2json
-Version: 1.00.01-0
+Version: 1.1.2-1
 Architecture: amd64
 Maintainer: J.F.Gratton <jean-francois@famillegratton.net>
 Description: YAML to JSON converter

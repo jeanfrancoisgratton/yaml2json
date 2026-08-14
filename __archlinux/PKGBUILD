@@ -1,0 +1,51 @@
+# Maintainer: J.F.Gratton <jean-francois@famillegratton.net>
+# Packager: Package builder <builder@famillegratton.net>
+
+pkgname=vmman4
+pkgver=0.4.0_debug
+pkgrel=2
+pkgdesc="QEMU/KVM virtual machines manager"
+arch=('x86_64')
+url="https://git.famillegratton.net:3000/devops/vmman4.git"
+license=('GPL-2.0-only')
+
+# Arch does not split out a -devel package: 'libvirt' carries the headers and
+# the pkg-config files (libvirt, libvirt-admin, libvirt-qemu, libvirt-lxc) as
+# well as the shared libs, so it is both a make- and a runtime dependency.
+makedepends=('base-devel' 'gcc' 'go')
+depends=('libvirt')
+
+options=('!debug')
+
+_binaryname='vmman'
+_builddir="${pkgname}-${pkgver}"
+
+install=vmman4.install
+
+prepare() {
+  rm -rf "${srcdir:?}/${_builddir}"
+  mkdir -p "${srcdir}/${_builddir}"
+
+  cp -a "${startdir}/../src/." "${srcdir}/${_builddir}/"
+}
+
+build() {
+  cd "${srcdir}/${_builddir}"
+
+  export CGO_ENABLED=1
+  export GOPATH="${srcdir}/gopath"
+  export GOMODCACHE="${GOPATH}/pkg/mod"
+
+  go build -trimpath -mod=readonly -modcacherw -ldflags="-s -w -buildid=" -o "${_binaryname}" .
+}
+
+check() {
+  cd "${srcdir}/${_builddir}"
+  go test -modcacherw ./...
+}
+
+package() {
+  cd "${srcdir}/${_builddir}"
+
+  install -Dm0755 "${_binaryname}" "${pkgdir}/opt/bin/${_binaryname}"
+}

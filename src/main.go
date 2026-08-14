@@ -17,7 +17,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-var version = fmt.Sprintf("1.00.01-0 2025.06.22 (ARCH=%s)", runtime.GOARCH)
+var version = fmt.Sprintf("1.1.2 2025.08.14 (ARCH=%s)", runtime.GOARCH)
 
 func main() {
 	// Handle 'changelog' command early
