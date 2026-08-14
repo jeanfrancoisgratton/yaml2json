@@ -54,5 +54,11 @@ install -Dpm 0755 %{_builddir}/%{name}-%{version}/%{_binaryname} %{buildroot}%{_
 
 
 %changelog
+* Fri Aug 14 2026 Binary package builder <builder@famillegratton.net> 1.1.2-1
+- RPMBUILDER: pasted over old config to new
+- 2nd specfile name change
+- RPMBUILDER: fixed specfile name
+- moved to SemVer, GO upgrade, BUILDERS scripts cleanup
+
 * Sat Jun 21 2025 APK Builder <builder@famillegratton.net> 1.00.00-0
 - new package built with tito
